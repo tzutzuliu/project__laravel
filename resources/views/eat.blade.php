@@ -8,20 +8,32 @@
 </head>
 <body>
     <h3>餐廳訂位</h3>
+
+    <p>
+        {!! $data['str'] !!}
+    </p>
+
     <!-- blade 語法 -->
     <p>{{ $data['name'] }}</p>
     <p>{{ $data['num'] }}</p>
+    <p>{{ $data['str'] }}</p>
+
+
+    
 
     <!-- blade 語法 -->
     @php
+    // dd($data);
         echo $data['name'];
         echo $data['num'];
+        echo $data['str'];
     @endphp
 
     <!-- 原生php 語法 -->
     <?php 
         echo $data['name'];
         echo $data['num'];
+        echo $data['str'];
     ?>
 
     

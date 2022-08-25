@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 
 use Illuminate\Http\Request;
 
+
+use App\Http\Controllers\TestController;
+use App\Http\Controllers\CarController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,6 +18,49 @@ use Illuminate\Http\Request;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+// 練習三
+// 建立CarController
+// index function
+// car.index.blade.php
+
+//php artisan make:controller CarController
+
+Route::get('/car', [CarController::class, 'index']);
+
+// single controller
+Route::get('/test', [TestController::class, 'testFun']);
+Route::get('/dis7', [TestController::class, 'dis7']);
+
+// /admin/student
+// /admin/product
+
+//admin prefix
+Route::prefix('admin')->group(function () {
+    Route::get('/student', function () {
+        // Matches The "/admin/users" URL
+        // dd('admin studnet');
+        return view('admin.student');
+    });
+    Route::get('/product', function () {
+        // Matches The "/admin/users" URL
+        // dd('admin product');
+        return view('admin.product');
+    });
+});
+
+
+// Route::get('/admin/student', function () {
+//     // dd('hello oop');
+//     return view('admin.student');
+
+// });
+
+// Route::get('/admin/product', function () {
+//     // dd('hello oop');
+//     return view('admin.product');
+
+// });
 
 // url/{變數}
 
@@ -27,7 +74,8 @@ Route::get('/eat/{name}/{num}', function ($name,$num) {
     
     $data = [
         'name' => $name,
-        'num' => $num
+        'num' => $num,
+        'str' => "$name+$num &nbsp;&nbsp; =>&nbsp;&nbsp; Hello"
     ];
 
     // return view('f1', ['name' => $name ,'num' => $num]);
