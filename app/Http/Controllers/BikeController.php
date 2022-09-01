@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Student;
 
 class BikeController extends Controller
 {
@@ -11,24 +12,26 @@ class BikeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-       // echo ("hello,bikes");
-       //return view('bike123.index');
-       //dd('bike index ok');
 
-       $myArr = [1,2,3];
-       $data = [
+    public function index(){
+    
 
-         'myArr' => $myArr,
-         'v1' => 11,
-         'v2' =>12
+        //model student data抓出來 ORM
+        //存在$data
+        $data = Student::all();
+        //dd($data);
 
-       ];
+        //foreach (Student::all() as $student){
+        //    echo $student->name;
+        //}
+        //return view('student.index');
 
-        return view('bike123.index',['data'=>$data]);
+        //dd($data);
+        return view('bike.index',['data' => $data]);
+
 
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -37,7 +40,9 @@ class BikeController extends Controller
      */
     public function create()
     {
-        dd('bike create ok');
+        //dd('bike create ok');
+        
+        return view('bike.create');
     }
 
     /**
@@ -48,9 +53,22 @@ class BikeController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        // dd('store ok');
+        dd($request->all());
 
+        $studnet = new Student();
+ 
+        $studnet->id = $request->id;
+        $studnet->name = $request->name;
+        $studnet->chinese = $request->chinese;
+        $studnet->english = $request->english;
+        $studnet->math = $request->math;
+ 
+        $studnet->save();
+
+        return redirect()->route('students.index');
+
+    }
     /**
      * Display the specified resource.
      *

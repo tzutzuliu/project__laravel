@@ -13,6 +13,8 @@
   {{-- 方法二 --}}
   <link rel="stylesheet" href="{{asset('css/style.css')}}">
 
+  
+
   {{-- <style>
     h2{
         color:red;
@@ -20,33 +22,34 @@
   </style> --}}
 </head>
 <body>
+  @php
+     dd($data)   ;
+  @endphp
 
 <div class="container">
   <h2>Hover Rows</h2>
-  <p>The .table-hover class enables a hover state (grey background on mouse over) on table rows:</p>            
+  <p>The .table-hover class enables a hover state (grey background on mouse over) on table rows:</p>
+  <a href="{{route('students.create')}}" class="mb-3 btn btn-success" role="button">add</a>            
   <table class="table table-hover">
     <thead>
       <tr>
-        <th>Firstname</th>
-        <th>Lastname</th>
-        <th>Email</th>
+        <th>id</th>
+        <th>name</th>
+        <th>chinese</th>
+        <th>english</th>
+        <th>math</th>
       </tr>
     </thead>
     <tbody>
+      @foreach ($data as $item)
       <tr>
-        <td>John</td>
-        <td>Doe</td>
-        <td>john@example.com</td>
-      </tr>
-      <tr>
-        <td>Mary</td>
-        <td>Moe</td>
-        <td>mary@example.com</td>
-      </tr>
-      <tr>
-        <td>July</td>
-        <td>Dooley</td>
-        <td>july@example.com</td>
+        <td>{{$item->id}}</td>
+        <td>{{$item->name}}</td>
+        <td>{{$item->chinese}}</td>
+        <td>{{$item->english}}</td>
+        <td>{{$item->math}}</td>
+      </tr>    
+      @endforeach
       </tr>
     </tbody>
   </table>

@@ -28,10 +28,12 @@ use App\Http\Controllers\BikeController;
 //要在Route路徑這邊寫的時候,上面記得要use base檔案;
 //就像是include進php檔案一樣;
 //Route::resource('111', PhotoController::class);
-Route::resource('bikes', BikeController::class);
+//Route::resource('bikes', BikeController::class);
 
-Route::get('/student/{name}/{num}', [StudentController::class,'getByUrl']);
-Route::get('/student', [StudentController::class,'index'])->name('student123');
+Route::resource('students', BikeController::class);
+
+//Route::get('/student/{name}/{num}', [StudentController::class,'getByUrl']);
+//Route::get('/student', [StudentController::class,'index'])->name('student123');
 
 
 Route::get('/',function(){
