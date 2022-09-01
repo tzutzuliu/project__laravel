@@ -1,12 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\StudentController;
 
-use Illuminate\Http\Request;
-
-
-use App\Http\Controllers\TestController;
-use App\Http\Controllers\CarController;
+//像是base檔案直接include進來;
+use App\Http\Controllers\PhotoController;
+use App\Http\Controllers\BikeController;
+ 
 
 /*
 |--------------------------------------------------------------------------
@@ -19,135 +19,21 @@ use App\Http\Controllers\CarController;
 |
 */
 
-// 練習三
-// 建立CarController
-// index function
-// car.index.blade.php
-
-//php artisan make:controller CarController
-
-Route::get('/car', [CarController::class, 'index']);
-
-// single controller
-Route::get('/test', [TestController::class, 'testFun']);
-Route::get('/dis7', [TestController::class, 'dis7']);
-
-// /admin/student
-// /admin/product
-
-//admin prefix
-Route::prefix('admin')->group(function () {
-    Route::get('/student', function () {
-        // Matches The "/admin/users" URL
-        // dd('admin studnet');
-        return view('admin.student');
-    });
-    Route::get('/product', function () {
-        // Matches The "/admin/users" URL
-        // dd('admin product');
-        return view('admin.product');
-    });
-});
+//Route::get('/student/{name}/{num}',function($name, $num){
+//    return "Name $name num $num";
+//});
 
 
-// Route::get('/admin/student', function () {
-//     // dd('hello oop');
-//     return view('admin.student');
+//那個路徑''111是可以被改掉的,那是路徑;
+//要在Route路徑這邊寫的時候,上面記得要use base檔案;
+//就像是include進php檔案一樣;
+//Route::resource('111', PhotoController::class);
+Route::resource('bikes', BikeController::class);
 
-// });
-
-// Route::get('/admin/product', function () {
-//     // dd('hello oop');
-//     return view('admin.product');
-
-// });
-
-// url/{變數}
-
-// 練習二
-// /eat/name/4
-// view
-// 訂位者大名 : name
-// 訂位者人數 : num
-
-Route::get('/eat/{name}/{num}', function ($name,$num) {
-    
-    $data = [
-        'name' => $name,
-        'num' => $num,
-        'str' => "$name+$num &nbsp;&nbsp; =>&nbsp;&nbsp; Hello"
-    ];
-
-    // return view('f1', ['name' => $name ,'num' => $num]);
-    return view('eat', ['data' => $data]);
-
-});
-
-// php artisan route:list
-// 兩個變數
-Route::get('/greeting/{name}/{num}', function (Request $request,$name,$num) {
-    dd($request->input('test'));
-
-    $str = "Hello $name , num => $num";
-
-    // return $str;
-
-    // dd($str);
-    $data = [
-        'str123' => $str,
-        'str456' => $str
-    ];
-
-    // return view('f1', ['str123' => $str ,'str456' => $str]);
-    return view('f1', ['data' => $data]);
-
-});
-
-// 一個變數
-Route::get('/greeting/{name}', function ($name) {
-
-    $str = "Hello $name";
-
-    return $str;
-
-});
+Route::get('/student/{name}/{num}', [StudentController::class,'getByUrl']);
+Route::get('/student', [StudentController::class,'index'])->name('student123');
 
 
-// 沒有變數
-Route::get('/greeting', function () {
- 
-    return 'hello';
-
-});
-
-
-
-Route::get('/admin_index', function () {
-    // dd('hello oop');
-    return view('admin.index');
-
-});
-
-Route::get('/oop', function () {
-    // dd('hello oop');
-    return view('oop');
-
-});
-
-
-Route::get('/f1', function () {
-    return view('f1');
-});
-
-Route::get('/f2', function () {
-    return view('f2');
-});
-
-Route::get('/f3', function () {
-    return view('f3');
-});
-
-
-Route::get('/', function () {
+Route::get('/',function(){
     return view('welcome');
 });
